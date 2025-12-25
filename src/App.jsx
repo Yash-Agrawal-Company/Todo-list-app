@@ -14,8 +14,11 @@ function App() {
     alert("Edit button clicked");
   };
 
-  const handleDelete = () => {
-    alert("Delete button clicked");
+  const handleDelete = (e,id) => {
+    
+    const newTodos = todos.filter((item) => item.id !== id);
+    setTodos(newTodos);
+    
   };
   const handleChange = (e) => {
     setTodo(e.target.value);
@@ -36,7 +39,7 @@ function App() {
     <>
       <Navbar />
 
-      <div className="container mx-auto  my-5 rounded-xl p-5 bg-emerald-200 min-h-[70vh]">
+      <div className="container mx-auto my-5 rounded-xl p-5 bg-emerald-200 min-h-[70vh]">
         <div className="addTodo">
           <h2 className="text-2xl font-bold my-2">Add Todo</h2>
           <div className=" inputTodo border-2 border-emerald-900 rounded-md p-3 bg-white flex justify-between items-center w-full">
@@ -46,6 +49,11 @@ function App() {
             value={todo}
             placeholder="Enter your todo"
             className=" w-full border-emerald-900 rounded-md p-1 mx-2 focus:outline-none focus:ring-0 focus:border-transparent"
+            onKeyDown={(e) => {
+              if(e.key === 'Enter'){
+                handleAdd()
+              }
+            }}
           />
           <button
             onClick={handleAdd}
@@ -58,6 +66,7 @@ function App() {
 
         <h1 className="text-2xl font-bold my-2">Your Todos</h1>
         <div className="todos">
+          {todos.length === 0 && <div className="text-center my-5 p-3 bg-white rounded-md text-2xl font-bold">No todos available. Please add some todos.</div> }
           {todos.map((item) => {
             return (
               <div key={item.id} className="todo flex my-4 justify-between items-center bg-green-50 p-3 rounded-md ">
@@ -71,7 +80,7 @@ function App() {
                     Edit
                   </button>
                   <button
-                    onClick={handleDelete}
+                    onClick={(e) => {handleDelete(e,item.id)}}
                     className="bg-emerald-900 text-white rounded-md px-3 py-1 hover:bg-emerald-700 transition-all duration-500 mx-2"
                   >
                     Delete
@@ -87,3 +96,4 @@ function App() {
 }
 
 export default App;
+
