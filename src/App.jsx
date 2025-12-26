@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Navbar from "./components/Navbar";
 import EditModal from "./components/EditModal";
+import { FaRegEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 function App() {
   const [isEditing, setIsEditing] = useState(false);
@@ -123,7 +125,8 @@ function App() {
                     onClick={() => handleEdit(item)}
                     className="bg-emerald-900 text-white rounded-md px-3 py-1 hover:bg-emerald-700 transition-all duration-500 mx-2"
                   >
-                    Edit
+                    <div className="flex gap-3 items-center text-xl">Edit <FaRegEdit /></div>
+
                   </button>
                   <button
                     onClick={(e) => {
@@ -131,7 +134,7 @@ function App() {
                     }}
                     className="bg-emerald-900 text-white rounded-md px-3 py-1 hover:bg-emerald-700 transition-all duration-500 mx-2"
                   >
-                    Delete
+                    <div className="flex gap-3 items-center text-xl">Delete <MdDelete /></div>
                   </button>
                 </div>
               </div>
