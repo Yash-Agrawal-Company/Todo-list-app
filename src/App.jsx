@@ -106,7 +106,7 @@ function App() {
               >
                 <input
                   type="checkbox"
-                  value={item.isCompleted}
+                  checked={item.isCompleted}
                   onChange={handleCheckBox}
                   name={item.id}
                 />
