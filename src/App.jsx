@@ -20,7 +20,8 @@ function App() {
 
 
   const handleAdd = () => {
-    setTodos([...todos, { id: uuidv4(), todo: todo, isCompleted: false }]);
+    if(todo.length<3) return;
+     setTodos([...todos, { id: uuidv4(), todo: todo, isCompleted: false }]);
     setTodo("");
   };
   const handleEdit = (todo) => {
@@ -85,7 +86,8 @@ function App() {
             />
             <button
               onClick={handleAdd}
-              className="bg-emerald-900 text-white rounded-md px-6 py-1 hover:bg-emerald-700 transition-all duration-500"
+              disabled={todo.length<3}
+              className="bg-emerald-900 text-white rounded-md px-6 py-1 hover:bg-emerald-700 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Add
             </button>
