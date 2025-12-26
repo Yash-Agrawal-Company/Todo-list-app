@@ -7,10 +7,11 @@ function App() {
   const [isEditing, setIsEditing] = useState(false);
   const [currentTodo, setCurrentTodo] = useState(null);
   const [todo, setTodo] = useState("");
+  const [showFinished,setShowFinished] = useState(false);
   const [todos, setTodos] = useState(() => {
     const savedTodos = localStorage.getItem("todos");
     return savedTodos ? JSON.parse(savedTodos): [];
-  })
+  });
 
   useEffect(() => {
    localStorage.setItem("todos",JSON.stringify(todos));
@@ -98,7 +99,11 @@ function App() {
               No todos available. Please add some todos.
             </div>
           )}
+          <input type="checkbox" onChange={(e)=>setShowFinished(!showFinished)} checked={showFinished} /> Show Finished Todos
           {todos.map((item) => {
+            if(showFinished && !item.isCompleted){
+              return null;
+            }
             return (
               <div
                 key={item.id}
