@@ -7,21 +7,19 @@ function App() {
   const [isEditing, setIsEditing] = useState(false);
   const [currentTodo, setCurrentTodo] = useState(null);
   const [todo, setTodo] = useState("");
-  const [showFinished,setShowFinished] = useState(false);
+  const [showFinished, setShowFinished] = useState(false);
   const [todos, setTodos] = useState(() => {
     const savedTodos = localStorage.getItem("todos");
-    return savedTodos ? JSON.parse(savedTodos): [];
+    return savedTodos ? JSON.parse(savedTodos) : [];
   });
 
   useEffect(() => {
-   localStorage.setItem("todos",JSON.stringify(todos));
-
+    localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
-
   const handleAdd = () => {
-    if(todo.length<3) return;
-     setTodos([...todos, { id: uuidv4(), todo: todo, isCompleted: false }]);
+    if (todo.length < 3) return;
+    setTodos([...todos, { id: uuidv4(), todo: todo, isCompleted: false }]);
     setTodo("");
   };
   const handleEdit = (todo) => {
@@ -48,14 +46,9 @@ function App() {
   };
 
   const handleUpdateTodo = (updatedTodo) => {
-  setTodos(
-    todos.map((t) =>
-      t.id === updatedTodo.id ? updatedTodo : t
-    )
-  );
-  setIsEditing(false);
-};
-
+    setTodos(todos.map((t) => (t.id === updatedTodo.id ? updatedTodo : t)));
+    setIsEditing(false);
+  };
 
   return (
     <>
@@ -86,7 +79,7 @@ function App() {
             />
             <button
               onClick={handleAdd}
-              disabled={todo.length<3}
+              disabled={todo.length < 3}
               className="bg-emerald-900 text-white rounded-md px-6 py-1 hover:bg-emerald-700 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Add
@@ -101,9 +94,14 @@ function App() {
               No todos available. Please add some todos.
             </div>
           )}
-          <input type="checkbox" onChange={(e)=>setShowFinished(!showFinished)} checked={showFinished} /> Show Finished Todos
+          <input
+            type="checkbox"
+            onChange={(e) => setShowFinished(!showFinished)}
+            checked={showFinished}
+          />{" "}
+          Show Finished Todos
           {todos.map((item) => {
-            if(showFinished && !item.isCompleted){
+            if (showFinished && !item.isCompleted) {
               return null;
             }
             return (
@@ -122,7 +120,7 @@ function App() {
                 </div>
                 <div className="buttons">
                   <button
-                     onClick={() => handleEdit(item)}
+                    onClick={() => handleEdit(item)}
                     className="bg-emerald-900 text-white rounded-md px-3 py-1 hover:bg-emerald-700 transition-all duration-500 mx-2"
                   >
                     Edit
@@ -146,6 +144,3 @@ function App() {
 }
 
 export default App;
-
-
-
