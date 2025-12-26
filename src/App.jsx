@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Navbar from "./components/Navbar";
 import EditModal from "./components/EditModal";
@@ -7,7 +7,16 @@ function App() {
   const [isEditing, setIsEditing] = useState(false);
   const [currentTodo, setCurrentTodo] = useState(null);
   const [todo, setTodo] = useState("");
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => {
+    const savedTodos = localStorage.getItem("todos");
+    return savedTodos ? JSON.parse(savedTodos): [];
+  })
+
+  useEffect(() => {
+   localStorage.setItem("todos",JSON.stringify(todos));
+
+  }, [todos]);
+
 
   const handleAdd = () => {
     setTodos([...todos, { id: uuidv4(), todo: todo, isCompleted: false }]);
